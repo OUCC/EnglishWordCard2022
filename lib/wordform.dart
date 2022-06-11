@@ -1,96 +1,150 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Wordform());
 
-class MyApp extends StatefulWidget {
+class Wordform extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _WordformState createState() => _WordformState();
 }
-class _MyAppState extends State<MyApp> {
-  String _text_English = '';
-  String _text_Japanese = '';
+class _WordformState extends State<Wordform> {
+  String _text_front = '';
+  String _text_back = '';
   
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          // タイトルテキスト
-          title: Text('英単語の追加'), 
-       ),
-       body: Container(
-        // 余白を付ける
-        padding: EdgeInsets.all(64),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // 入力されたテキストを表示
-            Text(_text_English, style: TextStyle(color: Colors.blue)),
-            const SizedBox(height: 8),
+      return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.green),
+      debugShowCheckedModeBanner: false,
+        home:Scaffold(
+          appBar: AppBar(
+            title: Text('英単語の追加'), 
+        ),
+        body: Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(_text_front, style: TextStyle(color: Colors.black, fontSize:50.0)),
+              
             // テキスト入力
-            TextField(
+              TextField(
+                decoration: InputDecoration(
+                  hintText:'英単語を入力してください',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                    color: Colors.amber,
+                    )
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                    color: Colors.amber,
+                   )
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  )
+                ),
               // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
-              onChanged: (String value_English) {
+              onChanged: (String value_front) {
                 // データが変更したことを知らせる（画面を更新する）
-                setState(() {
+                  setState(() {
                   // データを変更
-                  _text_English = value_English;
-                });
-              },
-            ),
-            Container(
-              // 横幅いっぱいに広げる
-              width: double.infinity,
+                    _text_front = value_front;
+                  });
+                },
+              ),
+              Text(_text_back, style: TextStyle(color: Colors.black, fontSize:50.0)),
+              const SizedBox(height: 8),
+            // テキスト入力
+              TextField(
+                decoration: InputDecoration(
+                  hintText:'訳を入力してください',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                    color: Colors.amber,
+                    )
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                    color: Colors.amber,
+                   )
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  )
+                ),
+              // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
+                onChanged: (String value_back) {
+                // データが変更したことを知らせる（画面を更新する）
+                  setState(() {
+                  // データを変更
+                    _text_back = value_back;
+                  });
+                },
+              ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               // リスト追加ボタン
-              child: ElevatedButton(
-                onPressed: () {
+                children: <Widget>[
+                  Container(
+                    child:SizedBox(
+                      width: 150, //横幅
+                      height: 80,
+                      child:ElevatedButton(
+                        child: const Text('追加'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          onPrimary: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
                   // "pop"で前の画面に戻る
                   // "pop"の引数から前の画面にデータを渡す
-                  Navigator.of(context).pop(_text_English);
-                },
-                child: Text('追加', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-            Text(_text_Japanese, style: TextStyle(color: Colors.blue)),
-            const SizedBox(height: 8),
-            // テキスト入力
-            TextField(
-              // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
-              onChanged: (String value_Japanese) {
-                // データが変更したことを知らせる（画面を更新する）
-                setState(() {
-                  // データを変更
-                  _text_Japanese = value_Japanese;
-                });
-              },
-            ),
-            const SizedBox(height: 8),
-            Container(
-              // 横幅いっぱいに広げる
-              width: double.infinity,
-              // リスト追加ボタン
-              child: ElevatedButton(
-                onPressed: () {
-                  // "pop"で前の画面に戻る
-                  // "pop"の引数から前の画面にデータを渡す
-                  Navigator.of(context).pop(_text_Japanese);
-                },
-                child: Text('追加', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              // 横幅いっぱいに広げる
-              width: double.infinity,
-              // キャンセルボタン
-              child: TextButton(
+                        Navigator.of(context).pop(_text_front);
+                        Navigator.of(context).pop(_text_back);
+                      },
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child:SizedBox(
+                      width: 150, //横幅
+                      height: 80,
+                      child:ElevatedButton(
+                        child: const Text('キャンセル'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          onPrimary: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                 // ボタンをクリックした時の処理
-                onPressed: () {
+                  onPressed: () {
                   // "pop"で前の画面に戻る
-                  Navigator.of(context).pop();
-                },
-                child: Text('キャンセル'),
+                    Navigator.of(context).pop();
+                  },
+                      ),
+                    ),
+                ),
+                ],
               ),
-            ),
-          ],
+              
+            ],
+          ),
         ),
       ),
     );
