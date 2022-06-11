@@ -1,13 +1,25 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import "WordCard.dart";
+import "WordStorage.dart";
+import 'package:flip_card/flip_card.dart';
 
-void main() {
-  // 最初に表示するWidget
-  runApp(MyTodoApp());
+/// 単語一覧ウィジェットです。
+class WordList extends StatefulWidget {
+  @override
+  _WordListState createState() => _WordListState();
 }
 
-class MyTodoApp extends StatelessWidget {
+class _WordListState extends State<WordList> {
+  WordStorage _storage = WebLocalStorage();
+  List<WordCard> _wordList = List<WordCard>.filled(0, new WordCard("",""));
+  @override
+  void initState() {
+    setState(() {
+      _wordList = _storage.GetWords();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,15 +30,7 @@ class MyTodoApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // リスト一覧画面を表示
-      home: WordListPage(),
-    );
-  }
-}
-
-class WordListPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+      home: Scaffold(
       appBar: AppBar(
         title: Text(
           'WordList',
@@ -35,165 +39,35 @@ class WordListPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
+      body: 
+        ListView.builder(
+          itemCount : _wordList.length,
+          itemBuilder :(BuildContext context, int index) {
+            return FlipCard(
+              front: Card(
+                child: Text(
+                  "${_wordList[index].Front}",
+                  style: TextStyle(
+                    fontSize: 25,
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
                 ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
+              ), // カード前面に表示するWidget
+              back: Card  (
+                child: Text(
+                  "${_wordList[index].Back}",
+                  style: TextStyle(
+                    fontSize: 25,
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
                 ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Lemon',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    elevation: 10,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+              ), // カード背面に表示するWidget
+              direction: FlipDirection.VERTICAL, // カード回転向き(HORIZONTAL:横<デフォルト>, VERTICAL:縦)
+              flipOnTouch: true, // タッチ可否(true:カード部タップで回転する<デフォルト>, false:タップしても回転しない)
+              speed: 500, // 回転スピード(500ミリ秒<デフォルト>)
+              onFlip: () {}, // タップイベント
+              onFlipDone: (isFront) {}, // タップイベント(前面かどうかbool値で判断できる) 
+            );
+          }
+        ),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -207,11 +81,22 @@ class WordListPage extends StatelessWidget {
             child: const Icon(
               Icons.add,
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState((){
+                _wordList = [..._wordList, new WordCard("aa", "gda")];
+              });
+              _storage.SetWords(_wordList);
+            },
           ),
         ],
       ),
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
+      )
     );
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _storage.SetWords(_wordList);
   }
 }
