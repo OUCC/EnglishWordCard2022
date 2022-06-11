@@ -2,7 +2,7 @@ import 'dart:html';
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'WordCard.g.dart';
-
+/// 単語カードクラスです。
 @JsonSerializable()
 class WordCard {
     String Front;   /// 表面の単語
