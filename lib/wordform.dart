@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(Wordform());
+import "model/WordCard.dart";
+import "model/WordStorage.dart";
 
 class Wordform extends StatefulWidget {
+  WordStorage storage;
+  bool isNewWord;
+    // 以下を実装、コンストラクタで値を受領
+  Wordform({ required this.storage, required this.isNewWord}) ;
+
+
   @override
-  _WordformState createState() => _WordformState();
+  _WordformState createState() => _WordformState(this.storage, this.isNewWord);
 }
 class _WordformState extends State<Wordform> {
+  final WordStorage storage;
+  final bool isNewWord;
   String _text_front = '';
   String _text_back = '';
   
+  _WordformState(this.storage, this.isNewWord ){}
+  
   Widget build(BuildContext context) {
-      return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.green),
-      debugShowCheckedModeBanner: false,
-        home:Scaffold(
-          appBar: AppBar(
-            title: Text('英単語の追加'), 
-        ),
-        body: Container(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(_text_front, style: TextStyle(color: Colors.black, fontSize:50.0)),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('英単語の追加'), 
+      ),
+      body: Container(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(_text_front, style: TextStyle(color: Colors.black, fontSize:50.0)),
               
             // テキスト入力
               TextField(
@@ -111,10 +117,10 @@ class _WordformState extends State<Wordform> {
                         ),
                       ),
                       onPressed: () {
-                  // "pop"で前の画面に戻る
-                  // "pop"の引数から前の画面にデータを渡す
-                        Navigator.of(context).pop(_text_front);
-                        Navigator.of(context).pop(_text_back);
+                        final list = storage.GetWords();
+                        list.add(new WordCard(_text_front, _text_back));
+                        storage.SetWords(list);
+                        Navigator.of(context).pop("a");
                       },
                       ),
                     ),
@@ -146,7 +152,6 @@ class _WordformState extends State<Wordform> {
             ],
           ),
         ),
-      ),
     );
   }
 }
