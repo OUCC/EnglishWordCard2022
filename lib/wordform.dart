@@ -23,7 +23,7 @@ class _WordformState extends State<Wordform> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('英単語の追加'), 
+        title: Text('単語の追加'), 
       ),
       body: Container(
         child: Column(
@@ -33,13 +33,11 @@ class _WordformState extends State<Wordform> {
               child:Image.asset(
                 'image/E-chan3.png'
               ),
-            ),
-            Text(_text_front, style: TextStyle(color: Colors.black, fontSize:40.0)),
-              
+            ),  
             // テキスト入力
               TextFormField(
                 decoration: InputDecoration(
-                  hintText:'英単語を入力してください',
+                  hintText:'表面（単語）',
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
@@ -68,22 +66,23 @@ class _WordformState extends State<Wordform> {
                   });
                 },
               ),
-              Text(_text_back, style: TextStyle(color: Colors.black, fontSize:30.0)),
-              const SizedBox(height: 8),
+              Container(
+                padding: EdgeInsets.all(10),
+              ),
             // テキスト入力
               TextFormField(
                 decoration: InputDecoration(
-                  hintText:'訳を入力してください',
+                  hintText:'裏面（答え）',
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
-                    color: Colors.amber,
+                    color: Colors.green,
                     )
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
-                    color: Colors.amber,
+                    color: Colors.green,
                    )
                   ),
                   filled: true,
