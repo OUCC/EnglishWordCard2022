@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import "WordCard.dart";
-import "WordStorage.dart";
+import "model/WordCard.dart";
+import "model/WordStorage.dart";
+import "wordform.dart";
 import 'package:flip_card/flip_card.dart';
 
 /// 単語一覧ウィジェットです。
@@ -39,6 +40,7 @@ class _WordListState extends State<WordList> {
           ),
         ),
       ),
+      // 一覧画面
       body: 
         ListView.builder(
           itemCount : _wordList.length,
@@ -68,10 +70,12 @@ class _WordListState extends State<WordList> {
             );
           }
         ),
+        
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           FloatingActionButton(
+            heroTag: "btnEdit",
             child: const Icon(
               Icons.favorite,
             ),
@@ -81,11 +85,18 @@ class _WordListState extends State<WordList> {
             child: const Icon(
               Icons.add,
             ),
-            onPressed: () {
+            heroTag: "btnAdd",
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Wordform(storage:this._storage, isNewWord:true);
+                  },
+                ),
+              );
               setState((){
-                _wordList = [..._wordList, new WordCard("aa", "gda")];
+                _wordList = _storage.GetWords();
               });
-              _storage.SetWords(_wordList);
             },
           ),
         ],
