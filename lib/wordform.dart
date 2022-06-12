@@ -33,7 +33,7 @@ class _WordformState extends State<Wordform> {
             Text(_text_front, style: TextStyle(color: Colors.black, fontSize:50.0)),
               
             // テキスト入力
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(
                   hintText:'英単語を入力してください',
                   enabledBorder: OutlineInputBorder(
@@ -67,7 +67,7 @@ class _WordformState extends State<Wordform> {
               Text(_text_back, style: TextStyle(color: Colors.black, fontSize:50.0)),
               const SizedBox(height: 8),
             // テキスト入力
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(
                   hintText:'訳を入力してください',
                   enabledBorder: OutlineInputBorder(
@@ -98,57 +98,73 @@ class _WordformState extends State<Wordform> {
                   });
                 },
               ),
-              
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Container(
+                padding: EdgeInsets.all(60),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
               // リスト追加ボタン
-                children: <Widget>[
-                  Container(
-                    child:SizedBox(
-                      width: 150, //横幅
-                      height: 80,
-                      child:ElevatedButton(
-                        child: const Text('追加'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.red,
-                          onPrimary: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                  children: <Widget>[
+                    Container(
+                      child:SizedBox(
+                        width: 150, 
+                        height: 40,
+                        child:ElevatedButton(
+                          child: const Text(
+                            '追加',
+                            style:TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.red,
+                            onPrimary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        final list = storage.GetWords();
-                        list.add(new WordCard(_text_front, _text_back));
-                        storage.SetWords(list);
-                        Navigator.of(context).pop("a");
-                      },
+                        onPressed: () {
+                          final list = storage.GetWords();
+                          list.add(new WordCard(_text_front, _text_back));
+                          storage.SetWords(list);
+                          Navigator.of(context).pop("a");
+                        },
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    child:SizedBox(
-                      width: 150, //横幅
-                      height: 80,
-                      child:ElevatedButton(
-                        child: const Text('キャンセル'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.red,
-                          onPrimary: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Container(
+                      child:SizedBox(
+                        width: 150, 
+                        height: 40,
+                        child:ElevatedButton(
+                          child: const Text(
+                            'キャンセル',
+                            style:TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.red,
+                            onPrimary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      ),
                 // ボタンをクリックした時の処理
-                  onPressed: () {
+                    onPressed: () {
                   // "pop"で前の画面に戻る
-                    Navigator.of(context).pop();
-                  },
+                      Navigator.of(context).pop();
+                    },
+                        ),
                       ),
                     ),
+                  ],
                 ),
-                ],
-              ),
-              
+              ), 
             ],
           ),
         ),
