@@ -26,11 +26,15 @@ class _WordformState extends State<Wordform> {
         title: Text('英単語の追加'), 
       ),
       body: Container(
-        padding: EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(_text_front, style: TextStyle(color: Colors.black, fontSize:50.0)),
+            Expanded(
+              child:Image.asset(
+                'image/E-chan3.png'
+              ),
+            ),
+            Text(_text_front, style: TextStyle(color: Colors.black, fontSize:40.0)),
               
             // テキスト入力
               TextFormField(
@@ -64,7 +68,7 @@ class _WordformState extends State<Wordform> {
                   });
                 },
               ),
-              Text(_text_back, style: TextStyle(color: Colors.black, fontSize:50.0)),
+              Text(_text_back, style: TextStyle(color: Colors.black, fontSize:30.0)),
               const SizedBox(height: 8),
             // テキスト入力
               TextFormField(
@@ -99,7 +103,7 @@ class _WordformState extends State<Wordform> {
                 },
               ),
               Container(
-                padding: EdgeInsets.all(60),
+                padding: EdgeInsets.all(30),
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
               // リスト追加ボタン
