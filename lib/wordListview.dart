@@ -48,24 +48,25 @@ class _WordListState extends State<WordList> {
                   child: Dismissible(
                     key: UniqueKey(),
                     onDismissed: (direction) {
-                      setState(() {
-                        _wordList.remove(_wordList[index]);
-                        _storage.SetWords(_wordList);
-                      });
 
-                      // スワイプ方向がendToStart（画面左から右）の場合の処理
+
+                      // スワイプ方向がendToStart（→）の場合の処理
                       if (direction == DismissDirection.endToStart) {
                         Scaffold.of(context).removeCurrentSnackBar();
                         Scaffold.of(context)
                             .showSnackBar(SnackBar(content: Text("削除しました")));
-                        // スワイプ方向がstartToEnd（画面右から左）の場合の処理
+                        // スワイプ方向がstartToEnd（←）の場合の処理
                       } else {
+                        setState(() {
+                          _wordList.remove(_wordList[index]);
+                          _storage.SetWords(_wordList);
+                        });
                         Scaffold.of(context).removeCurrentSnackBar();
                         Scaffold.of(context)
                             .showSnackBar(SnackBar(content: Text("削除しました")));
                       }
                     },
-                    // スワイプ方向がendToStart（画面左から右）の場合のバックグラウンドの設定
+                    // スワイプ方向がendToStart（→）の場合のバックグラウンドの設定
                     background: Container(
                       alignment: Alignment.centerLeft,
                       color: Colors.redAccent[700],
@@ -75,8 +76,18 @@ class _WordListState extends State<WordList> {
                               Icon(Icons.delete_forever, color: Colors.white)),
                     ),
 
-                    // スワイプ方向がstartToEnd（画面右から左）の場合のバックグラウンドの設定
-                    secondaryBackground: Container(color: Colors.blue),
+                    // スワイプ方向がstartToEnd（←）の場合のバックグラウンドの設定
+                    secondaryBackground: Container(
+                      alignment: Alignment.centerRight,
+                      padding: EdgeInsets.only(
+                        right: 20,
+                      ),
+                      color: Colors.redAccent[700],
+                      child: Padding(
+                          padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                          child:
+                          Icon(Icons.delete_forever, color: Colors.white)),),
+                    direction: DismissDirection.endToStart,
 
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
