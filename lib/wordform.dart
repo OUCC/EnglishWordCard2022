@@ -12,6 +12,7 @@ class Wordform extends StatefulWidget {
   @override
   _WordformState createState() => _WordformState(this.storage, this.isNewWord);
 }
+
 class _WordformState extends State<Wordform> {
   final WordStorage storage;
   final bool isNewWord;
@@ -25,52 +26,54 @@ class _WordformState extends State<Wordform> {
       appBar: AppBar(
         title: Text('単語の追加'), 
       ),
-      body: Container(
-        child: Column(
+      body: Container(   
+        color: Colors.grey[200], 
+        child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child:Image.asset(
                 'image/E-chan3.png'
               ),
-            ),  
-            // テキスト入力
-              TextFormField(
+            ), 
+            Container(
+              padding: EdgeInsets.only(top:10,right:30,left:30,bottom:5),
+              child:TextFormField(
                 decoration: InputDecoration(
-                  hintText:'表面（単語）',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                    color: Colors.amber,
+                hintText:'表面（単語）',
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(
+                    color: Colors.green,
                     )
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                    color: Colors.amber,
-                   )
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(
+                    color: Colors.green,
+                  )
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade200,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
                   )
                 ),
               // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
-              onChanged: (String value_front) {
+                onChanged: (String value_front) {
                 // データが変更したことを知らせる（画面を更新する）
                   setState(() {
                   // データを変更
                     _text_front = value_front;
-                  });
-                },
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
+                    });
+                  },
+                ),
               ),
             // テキスト入力
-              TextFormField(
+            Container(
+              padding:EdgeInsets.only(top:10,right:30,left:30),
+              child:TextFormField(
                 decoration: InputDecoration(
                   hintText:'裏面（答え）',
                   enabledBorder: OutlineInputBorder(
@@ -101,6 +104,7 @@ class _WordformState extends State<Wordform> {
                   });
                 },
               ),
+            ),
               Container(
                 padding: EdgeInsets.all(30),
                 child:Row(
@@ -120,7 +124,7 @@ class _WordformState extends State<Wordform> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            primary: Colors.amber,
                             onPrimary: Colors.black,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -151,7 +155,7 @@ class _WordformState extends State<Wordform> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            primary: Colors.amber,
                             onPrimary: Colors.black,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -168,7 +172,7 @@ class _WordformState extends State<Wordform> {
                   ],
                 ),
               ), 
-            ],
+          ],
           ),
         ),
     );
