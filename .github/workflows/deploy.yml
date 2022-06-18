@@ -18,12 +18,14 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
 
       - name: Setup Flutter
-        uses: subsito/flutter-action@v2
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.10.4"
+          flutter-version: '2.10.4'
+          channel: 'stable'
+      - run: flutter --version
           
       - name: Install
         run:
