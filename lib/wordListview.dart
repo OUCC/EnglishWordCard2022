@@ -24,7 +24,7 @@ class _WordListState extends State<WordList> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // アプリ名
+        // アプリ名
         title: 'WordList',
         theme: ThemeData(
           // テーマカラー
@@ -34,7 +34,7 @@ class _WordListState extends State<WordList> {
         home: Scaffold(
           appBar: AppBar(
             title: Text(
-              'WordList',
+              '単語一覧',
               style: TextStyle(
                 fontSize: 25,
               ),
@@ -46,11 +46,13 @@ class _WordListState extends State<WordList> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Dismissible(
-                    key: ObjectKey('key1'),
+                    key: UniqueKey(),
                     onDismissed: (direction) {
                       setState(() {
-                        _wordList.removeAt(index);
+                        _wordList.remove(_wordList[index]);
+                        _storage.SetWords(_wordList);
                       });
+
                       // スワイプ方向がendToStart（画面左から右）の場合の処理
                       if (direction == DismissDirection.endToStart) {
                         Scaffold.of(context).removeCurrentSnackBar();
@@ -69,8 +71,8 @@ class _WordListState extends State<WordList> {
                       color: Colors.redAccent[700],
                       child: Padding(
                           padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
-                          child: Icon(Icons.delete_forever,
-                              color: Colors.white)),
+                          child:
+                              Icon(Icons.delete_forever, color: Colors.white)),
                     ),
 
                     // スワイプ方向がstartToEnd（画面右から左）の場合のバックグラウンドの設定
