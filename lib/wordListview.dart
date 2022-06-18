@@ -47,24 +47,18 @@ class _WordListState extends State<WordList> {
                 return Container(
                   child: Dismissible(
                     key: UniqueKey(),
+                    direction: DismissDirection.endToStart,
                     onDismissed: (direction) {
-
-
-                      // スワイプ方向がendToStart（→）の場合の処理
+                      // スワイプ方向がendToStart（←）の場合の処理
                       if (direction == DismissDirection.endToStart) {
-                        Scaffold.of(context).removeCurrentSnackBar();
-                        Scaffold.of(context)
-                            .showSnackBar(SnackBar(content: Text("削除しました")));
-                        // スワイプ方向がstartToEnd（←）の場合の処理
-                      } else {
                         setState(() {
                           _wordList.remove(_wordList[index]);
-                          _storage.SetWords(_wordList);
                         });
+                        _storage.SetWords(_wordList);
                         Scaffold.of(context).removeCurrentSnackBar();
                         Scaffold.of(context)
                             .showSnackBar(SnackBar(content: Text("削除しました")));
-                      }
+                      } 
                     },
                     // スワイプ方向がendToStart（→）の場合のバックグラウンドの設定
                     background: Container(
@@ -87,7 +81,6 @@ class _WordListState extends State<WordList> {
                           padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
                           child:
                           Icon(Icons.delete_forever, color: Colors.white)),),
-                    direction: DismissDirection.endToStart,
 
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
